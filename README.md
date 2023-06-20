@@ -1,3 +1,1 @@
-# masters-dissertation-poc
-
-This is a work in progress, come back in a few days.
+This git repository contains files related to the master's dissertation "Data-based compliance checking against building requirements".
