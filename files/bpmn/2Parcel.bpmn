@@ -41,6 +41,8 @@
         <flowNodeRef>Activity_105h254</flowNodeRef>
         <flowNodeRef>Activity_0px5kfi</flowNodeRef>
         <flowNodeRef>Activity_0bynqxz</flowNodeRef>
+        <flowNodeRef>Activity_1fm3iup</flowNodeRef>
+        <flowNodeRef>Activity_1jl8qi9</flowNodeRef>
         <flowNodeRef>Activity_1yvyp1i</flowNodeRef>
         <flowNodeRef>Activity_0q9wifj</flowNodeRef>
         <flowNodeRef>Activity_0c43jpa</flowNodeRef>
@@ -56,8 +58,6 @@
         <flowNodeRef>Event_0tfp9uv</flowNodeRef>
         <flowNodeRef>Event_0oodp5s</flowNodeRef>
         <flowNodeRef>Activity_1xtor6h</flowNodeRef>
-        <flowNodeRef>Activity_1fm3iup</flowNodeRef>
-        <flowNodeRef>Activity_1jl8qi9</flowNodeRef>
       </lane>
     </laneSet>
     <startEvent id="Event_0ugirs0" name="Parcel">
@@ -94,7 +94,7 @@
     <dataObject id="DataObject_02hnzw7" />
     <dataObjectReference id="DataObjectReference_1j4iv5l" name="G10" dataObjectRef="DataObject_17wz9lq" />
     <dataObject id="DataObject_17wz9lq" />
-    <callActivity id="Activity_0nwespr" name="http://localhost:3000/getcoordinates">
+    <callActivity id="Activity_0nwespr" name="https://vlaanderen.be/conv/coordinateconversion">
       <property id="Property_1q71y8o" name="__targetRef_placeholder" />
       <dataInputAssociation id="DataInputAssociation_0qnr9zf">
         <sourceRef>DataObjectReference_0nzmlco</sourceRef>
@@ -106,7 +106,7 @@
     </callActivity>
     <dataObjectReference id="DataObjectReference_15t8b92" name="G11" dataObjectRef="DataObject_1p0ew62" />
     <dataObject id="DataObject_1p0ew62" />
-    <callActivity id="Activity_1u9s1ki" name="http://localhost:5000/getpropertyarea">
+    <callActivity id="Activity_1u9s1ki" name="https://vlaanderen.be/op/parcelarea">
       <property id="Property_0u6shax" name="__targetRef_placeholder" />
       <dataInputAssociation id="DataInputAssociation_0mgjm9k">
         <sourceRef>DataObjectReference_1j4iv5l</sourceRef>
@@ -252,11 +252,11 @@
         <targetRef>Property_0627jou</targetRef>
       </dataInputAssociation>
     </receiveTask>
-    <scriptTask id="Activity_07y1sqc" name="R21 = R18">
+    <scriptTask id="Activity_07y1sqc" name="R21 = 0">
       <incoming>Flow_0qfc0xs</incoming>
       <outgoing>Flow_18ln6nn</outgoing>
     </scriptTask>
-    <scriptTask id="Activity_105h254" name="R21 = max(R18-60,0)">
+    <scriptTask id="Activity_105h254" name="R21 = 60">
       <incoming>Flow_13au38v</incoming>
       <incoming>Flow_0830ieu</incoming>
       <outgoing>Flow_0brxd75</outgoing>
@@ -272,7 +272,7 @@
     </receiveTask>
     <dataObjectReference id="DataObjectReference_0u2ikuf" name="G12" dataObjectRef="DataObject_14qsxxz" />
     <dataObject id="DataObject_14qsxxz" />
-    <callActivity id="Activity_1g5x02h" name="http://localhost:1000/getwatercatchment">
+    <callActivity id="Activity_1g5x02h" name="https://vlaanderen.be/op/watercatchmentprotectionzone">
       <property id="Property_10vkrhs" name="__targetRef_placeholder" />
       <dataInputAssociation id="DataInputAssociation_1u7sqts">
         <sourceRef>DataObjectReference_1j4iv5l</sourceRef>
@@ -359,7 +359,7 @@
     <dataObject id="DataObject_1qsacdd" />
     <dataObjectReference id="DataObjectReference_05j3gtk" name="B2" dataObjectRef="DataObject_0jgyd09" />
     <dataObject id="DataObject_0jgyd09" />
-    <receiveTask id="Activity_0bynqxz" name="Corrected sum drainage surface areas">
+    <receiveTask id="Activity_0bynqxz" name="Subtractable drainage surface area">
       <incoming>Flow_1fsjaob</incoming>
       <outgoing>Flow_0yuilfg</outgoing>
       <property id="Property_1awhvou" name="__targetRef_placeholder" />
@@ -368,103 +368,7 @@
         <targetRef>Property_1awhvou</targetRef>
       </dataInputAssociation>
     </receiveTask>
-    <sendTask id="Activity_1yvyp1i" name="Corrected sum drainage surface areas">
-      <incoming>Flow_18ln6nn</incoming>
-      <incoming>Flow_0brxd75</incoming>
-      <outgoing>Flow_0y8q6bh</outgoing>
-      <dataOutputAssociation id="DataOutputAssociation_1tflsdp">
-        <targetRef>DataObjectReference_0lz97eq</targetRef>
-      </dataOutputAssociation>
-    </sendTask>
-    <scriptTask id="Activity_0q9wifj" name="R22 = R21 * 25">
-      <incoming>Flow_0y8q6bh</incoming>
-      <incoming>Flow_0yuilfg</incoming>
-      <outgoing>Flow_0jlx9xg</outgoing>
-    </scriptTask>
-    <sendTask id="Activity_0c43jpa" name="Minimum capacity rainwater regulation system">
-      <incoming>Flow_0jlx9xg</incoming>
-      <outgoing>Flow_0yu3euz</outgoing>
-      <dataOutputAssociation id="DataOutputAssociation_0so2rvd">
-        <targetRef>DataObjectReference_1nw1h0c</targetRef>
-      </dataOutputAssociation>
-    </sendTask>
-    <receiveTask id="Activity_1gexz3w" name="Planned capacity rainwater regulation system">
-      <incoming>Flow_0yu3euz</incoming>
-      <outgoing>Flow_01uae3t</outgoing>
-      <property id="Property_0wqi8rf" name="__targetRef_placeholder" />
-      <dataInputAssociation id="DataInputAssociation_0zoozwi">
-        <sourceRef>DataObjectReference_10wciem</sourceRef>
-        <targetRef>Property_0wqi8rf</targetRef>
-      </dataInputAssociation>
-    </receiveTask>
-    <exclusiveGateway id="Gateway_1dps8fg" name="Planned rainwater regulation system capacity lower than required?">
-      <incoming>Flow_01uae3t</incoming>
-      <outgoing>Flow_16lc6bq</outgoing>
-      <outgoing>Flow_06wq6m0</outgoing>
-    </exclusiveGateway>
-    <receiveTask id="Activity_1lh5247" name="Motivation lower capacity rainwater regulation system">
-      <incoming>Flow_16lc6bq</incoming>
-      <outgoing>Flow_18ja5wu</outgoing>
-      <property id="Property_1i25wdb" name="__targetRef_placeholder" />
-      <dataInputAssociation id="DataInputAssociation_0wfze29">
-        <sourceRef>DataObjectReference_1wlshrw</sourceRef>
-        <targetRef>Property_1i25wdb</targetRef>
-      </dataInputAssociation>
-    </receiveTask>
-    <exclusiveGateway id="Gateway_1hyiugf" name="Type of rainwater regulation system?">
-      <incoming>Flow_18ja5wu</incoming>
-      <incoming>Flow_06wq6m0</incoming>
-      <outgoing>Flow_0j56r6e</outgoing>
-      <outgoing>Flow_03y88xt</outgoing>
-    </exclusiveGateway>
-    <scriptTask id="Activity_0jmguxe" name="R25 = R21/25">
-      <incoming>Flow_0j56r6e</incoming>
-      <outgoing>Flow_0stkiw2</outgoing>
-    </scriptTask>
-    <sendTask id="Activity_00vj3yk" name="Minimum area infiltration system">
-      <incoming>Flow_0stkiw2</incoming>
-      <outgoing>Flow_10utwl2</outgoing>
-      <dataOutputAssociation id="DataOutputAssociation_1ezm8if">
-        <targetRef>DataObjectReference_0w7j966</targetRef>
-      </dataOutputAssociation>
-    </sendTask>
-    <exclusiveGateway id="Gateway_1dlwyic" name="Planned area infiltration system lower than required?">
-      <incoming>Flow_12pr5kg</incoming>
-      <outgoing>Flow_1vhbmm8</outgoing>
-      <outgoing>Flow_1ppwzlo</outgoing>
-    </exclusiveGateway>
-    <receiveTask id="Activity_02bth0a" name="Motivation lower area infiltration system">
-      <incoming>Flow_1vhbmm8</incoming>
-      <outgoing>Flow_0ciwp22</outgoing>
-      <property id="Property_0f9k0il" name="__targetRef_placeholder" />
-      <dataInputAssociation id="DataInputAssociation_1fnz3g9">
-        <sourceRef>DataObjectReference_1nlxuh7</sourceRef>
-        <targetRef>Property_0f9k0il</targetRef>
-      </dataInputAssociation>
-    </receiveTask>
-    <exclusiveGateway id="Gateway_0p9c4yr" name="Buffer facility with parcel area bigger than 2500 m²?">
-      <incoming>Flow_0ciwp22</incoming>
-      <incoming>Flow_1ppwzlo</incoming>
-      <incoming>Flow_03y88xt</incoming>
-      <outgoing>Flow_1qocgdj</outgoing>
-      <outgoing>Flow_0m148eq</outgoing>
-    </exclusiveGateway>
-    <endEvent id="Event_0tfp9uv" name="{R13}">
-      <incoming>Flow_1qocgdj</incoming>
-    </endEvent>
-    <endEvent id="Event_0oodp5s" name="Buffer facility with delayed drainage and maximum emptying flow of 20 l/s/ha">
-      <incoming>Flow_0m148eq</incoming>
-    </endEvent>
-    <receiveTask id="Activity_1xtor6h" name="Planned area infiltration system">
-      <incoming>Flow_10utwl2</incoming>
-      <outgoing>Flow_12pr5kg</outgoing>
-      <property id="Property_0p3og4s" name="__targetRef_placeholder" />
-      <dataInputAssociation id="DataInputAssociation_01678qz">
-        <sourceRef>DataObjectReference_12fsgn3</sourceRef>
-        <targetRef>Property_0p3og4s</targetRef>
-      </dataInputAssociation>
-    </receiveTask>
-    <callActivity id="Activity_1ivhpnv" name="http://localhost:2000/rec">
+    <callActivity id="Activity_1ivhpnv" name="https://vlaanderen.be/op/subtractabledrainagesurfacearea">
       <property id="Property_10puioh" name="__targetRef_placeholder" />
       <dataInputAssociation id="DataInputAssociation_1vemjty">
         <sourceRef>DataStoreReference_182tu2r</sourceRef>
@@ -476,19 +380,6 @@
     </callActivity>
     <dataObjectReference id="DataObjectReference_0lz97eq" name="R21" dataObjectRef="DataObject_1vjb66c" />
     <dataObject id="DataObject_1vjb66c" />
-    <dataObjectReference id="DataObjectReference_1nw1h0c" name="R22" dataObjectRef="DataObject_00m7dpu" />
-    <dataObject id="DataObject_00m7dpu" />
-    <dataObjectReference id="DataObjectReference_10wciem" name="A23" dataObjectRef="DataObject_1s0los1" />
-    <dataObject id="DataObject_1s0los1" />
-    <dataObjectReference id="DataObjectReference_1wlshrw" name="A24M" dataObjectRef="DataObject_1rrelxe" />
-    <dataObject id="DataObject_1rrelxe" />
-    <dataObjectReference id="DataObjectReference_0w7j966" name="R25" dataObjectRef="DataObject_0irhpvv" />
-    <dataObject id="DataObject_0irhpvv" />
-    <dataObjectReference id="DataObjectReference_12fsgn3" name="A26" dataObjectRef="DataObject_0odzjna" />
-    <dataObject id="DataObject_0odzjna" />
-    <dataObjectReference id="DataObjectReference_1nlxuh7" name="A27M" dataObjectRef="DataObject_0luyxak" />
-    <dataObject id="DataObject_0luyxak" />
-    <dataStoreReference id="DataStoreReference_182tu2r" name="[B2-B1,A20,A5]" />
     <receiveTask id="Activity_1fm3iup" name="Green roof surface area">
       <incoming>Flow_0ksuhtl</incoming>
       <outgoing>Flow_0f2absj</outgoing>
@@ -507,6 +398,115 @@
         <targetRef>Property_1bd6ox9</targetRef>
       </dataInputAssociation>
     </receiveTask>
+    <dataStoreReference id="DataStoreReference_182tu2r" name="[B2-B1,A20,A5]" />
+    <dataObjectReference id="DataObjectReference_1nlxuh7" name="A27M" dataObjectRef="DataObject_0luyxak" />
+    <dataObject id="DataObject_0luyxak" />
+    <dataObjectReference id="DataObjectReference_12fsgn3" name="A26" dataObjectRef="DataObject_0odzjna" />
+    <dataObject id="DataObject_0odzjna" />
+    <dataObjectReference id="DataObjectReference_0w7j966" name="R25" dataObjectRef="DataObject_0irhpvv" />
+    <dataObject id="DataObject_0irhpvv" />
+    <dataObjectReference id="DataObjectReference_1wlshrw" name="A24M" dataObjectRef="DataObject_1rrelxe" />
+    <dataObject id="DataObject_1rrelxe" />
+    <dataObjectReference id="DataObjectReference_10wciem" name="A23" dataObjectRef="DataObject_1s0los1" />
+    <dataObject id="DataObject_1s0los1" />
+    <dataObjectReference id="DataObjectReference_1nw1h0c" name="R22" dataObjectRef="DataObject_00m7dpu" />
+    <dataObject id="DataObject_00m7dpu" />
+    <receiveTask id="Activity_1xtor6h" name="Planned area infiltration system">
+      <incoming>Flow_10utwl2</incoming>
+      <outgoing>Flow_12pr5kg</outgoing>
+      <property id="Property_0p3og4s" name="__targetRef_placeholder" />
+      <dataInputAssociation id="DataInputAssociation_01678qz">
+        <sourceRef>DataObjectReference_12fsgn3</sourceRef>
+        <targetRef>Property_0p3og4s</targetRef>
+      </dataInputAssociation>
+    </receiveTask>
+    <endEvent id="Event_0oodp5s" name="Buffer facility with delayed drainage and maximum emptying flow of 20 l/s/ha">
+      <incoming>Flow_0m148eq</incoming>
+    </endEvent>
+    <endEvent id="Event_0tfp9uv" name="{R13}">
+      <incoming>Flow_1qocgdj</incoming>
+    </endEvent>
+    <exclusiveGateway id="Gateway_0p9c4yr" name="Buffer facility with parcel area bigger than 2500 m²?">
+      <incoming>Flow_0ciwp22</incoming>
+      <incoming>Flow_1ppwzlo</incoming>
+      <incoming>Flow_03y88xt</incoming>
+      <outgoing>Flow_1qocgdj</outgoing>
+      <outgoing>Flow_0m148eq</outgoing>
+    </exclusiveGateway>
+    <receiveTask id="Activity_02bth0a" name="Motivation lower area infiltration system">
+      <incoming>Flow_1vhbmm8</incoming>
+      <outgoing>Flow_0ciwp22</outgoing>
+      <property id="Property_0f9k0il" name="__targetRef_placeholder" />
+      <dataInputAssociation id="DataInputAssociation_1fnz3g9">
+        <sourceRef>DataObjectReference_1nlxuh7</sourceRef>
+        <targetRef>Property_0f9k0il</targetRef>
+      </dataInputAssociation>
+    </receiveTask>
+    <exclusiveGateway id="Gateway_1dlwyic" name="Planned area infiltration system lower than required?">
+      <incoming>Flow_12pr5kg</incoming>
+      <outgoing>Flow_1vhbmm8</outgoing>
+      <outgoing>Flow_1ppwzlo</outgoing>
+    </exclusiveGateway>
+    <sendTask id="Activity_00vj3yk" name="Minimum area infiltration system">
+      <incoming>Flow_0stkiw2</incoming>
+      <outgoing>Flow_10utwl2</outgoing>
+      <dataOutputAssociation id="DataOutputAssociation_1ezm8if">
+        <targetRef>DataObjectReference_0w7j966</targetRef>
+      </dataOutputAssociation>
+    </sendTask>
+    <scriptTask id="Activity_0jmguxe" name="R25 = R21/25">
+      <incoming>Flow_0j56r6e</incoming>
+      <outgoing>Flow_0stkiw2</outgoing>
+    </scriptTask>
+    <exclusiveGateway id="Gateway_1hyiugf" name="Type of rainwater regulation system?">
+      <incoming>Flow_18ja5wu</incoming>
+      <incoming>Flow_06wq6m0</incoming>
+      <outgoing>Flow_0j56r6e</outgoing>
+      <outgoing>Flow_03y88xt</outgoing>
+    </exclusiveGateway>
+    <receiveTask id="Activity_1lh5247" name="Motivation lower capacity rainwater regulation system">
+      <incoming>Flow_16lc6bq</incoming>
+      <outgoing>Flow_18ja5wu</outgoing>
+      <property id="Property_1i25wdb" name="__targetRef_placeholder" />
+      <dataInputAssociation id="DataInputAssociation_0wfze29">
+        <sourceRef>DataObjectReference_1wlshrw</sourceRef>
+        <targetRef>Property_1i25wdb</targetRef>
+      </dataInputAssociation>
+    </receiveTask>
+    <exclusiveGateway id="Gateway_1dps8fg" name="Planned rainwater regulation system capacity lower than required?">
+      <incoming>Flow_01uae3t</incoming>
+      <outgoing>Flow_16lc6bq</outgoing>
+      <outgoing>Flow_06wq6m0</outgoing>
+    </exclusiveGateway>
+    <receiveTask id="Activity_1gexz3w" name="Planned capacity rainwater regulation system">
+      <incoming>Flow_0yu3euz</incoming>
+      <outgoing>Flow_01uae3t</outgoing>
+      <property id="Property_0wqi8rf" name="__targetRef_placeholder" />
+      <dataInputAssociation id="DataInputAssociation_0zoozwi">
+        <sourceRef>DataObjectReference_10wciem</sourceRef>
+        <targetRef>Property_0wqi8rf</targetRef>
+      </dataInputAssociation>
+    </receiveTask>
+    <sendTask id="Activity_0c43jpa" name="Minimum capacity rainwater regulation system">
+      <incoming>Flow_0jlx9xg</incoming>
+      <outgoing>Flow_0yu3euz</outgoing>
+      <dataOutputAssociation id="DataOutputAssociation_0so2rvd">
+        <targetRef>DataObjectReference_1nw1h0c</targetRef>
+      </dataOutputAssociation>
+    </sendTask>
+    <scriptTask id="Activity_0q9wifj" name="R22 = max(R18-R21,0) * 25">
+      <incoming>Flow_0y8q6bh</incoming>
+      <incoming>Flow_0yuilfg</incoming>
+      <outgoing>Flow_0jlx9xg</outgoing>
+    </scriptTask>
+    <sendTask id="Activity_1yvyp1i" name="Subtractable drainage surface area">
+      <incoming>Flow_18ln6nn</incoming>
+      <incoming>Flow_0brxd75</incoming>
+      <outgoing>Flow_0y8q6bh</outgoing>
+      <dataOutputAssociation id="DataOutputAssociation_1tflsdp">
+        <targetRef>DataObjectReference_0lz97eq</targetRef>
+      </dataOutputAssociation>
+    </sendTask>
   </process>
   <bpmndi:BPMNDiagram id="BpmnDiagram_1">
     <bpmndi:BPMNPlane id="BpmnPlane_1" bpmnElement="Collaboration_0hzla92">
@@ -872,7 +872,7 @@
       <bpmndi:BPMNShape id="DataStoreReference_182tu2r_di" bpmnElement="DataStoreReference_182tu2r">
         <omgdc:Bounds x="6065" y="845" width="50" height="50" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="6032" y="902" width="76" height="14" />
+          <omgdc:Bounds x="5982" y="863" width="76" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0vewn99_di" bpmnElement="Activity_1fm3iup">
