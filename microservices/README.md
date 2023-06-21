@@ -1,5 +1,4 @@
 # Microservices
-## 
 This folder contains 4 microservices utilized in the master's dissertation "Data-based compliance checking against building requirements". They are developed to illustrate the capabilities of microservices in conjuction with BPMN diagrams. They can be coupled to the the illustrative example provided in the Proof of Concept Application at https://github.com/simonbaecke/masters-dissertation-poc, but can also be used independently.
 ## Installation
 To install a microservices, make sure Python 3.9 or higher is installed on your device. Each folder contains one microservice, so the operations have to be performed on the folder of the desired microservice. Installing the microservice can be done by first starting a Python virtual environment and then installing the dependencies stored in the pyproject.toml file. The virtual environment is activated using the following commands.
@@ -29,6 +28,5 @@ To run the Docker image in a Docker Container, use the following command.
 ```
 docker run <image-name>
 ```
-
 ## Reference
 The microservice designs are based on the proposal of Lemmens (2023) to implement a microservice architecture in the AEC domain. The template can be found at https://github.com/stelemme/template-microservice-py.
